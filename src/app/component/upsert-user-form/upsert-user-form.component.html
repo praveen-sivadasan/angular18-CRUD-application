@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>
+  <ng-container *ngIf="userForm.controls.id; else elseBlock">User Edit Form</ng-container>
+  <ng-template #elseBlock>User Add Form</ng-template>
+</h2>
+
+<ng-container *ngTemplateOutlet="errorTemplate"></ng-container>
+
+<mat-dialog-content>
+  <form class="form" [formGroup]="userForm">
+    <div class="grid-container">
+      <div class="grid-item">
+        <mat-form-field>
+          <mat-label>First Name:</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+      </div>
+
+      <div class="grid-item">
+        <mat-form-field>
+          <mat-label>Last Name:</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button type="button" class="btn btn-info btn-sm mr-2" (click)="saveUser()" [disabled]="userForm.invalid">Save</button>
+</mat-dialog-actions>
+
+
+<ng-template #errorTemplate>
+  <div class="error">
+    <div *ngIf="userForm.controls.firstName.invalid && (userForm.controls.firstName.dirty || userForm.controls.firstName.touched)" class="alert">
+      <div *ngIf="userForm.controls.firstName.errors?.['required']">
+        First Name is required.
+      </div>
+    </div>
+    <div *ngIf="userForm.controls.lastName.invalid && (userForm.controls.lastName.dirty || userForm.controls.lastName.touched)" class="alert">
+      <div *ngIf="userForm.controls.lastName.errors?.['required']">
+        Last Name is required.
+      </div>
+    </div>
+  </div>
+</ng-template>
