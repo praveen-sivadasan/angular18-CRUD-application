@@ -72,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Angular-CRUD-Operations:build"
+            "buildTarget": "Angular-CRUD-Operations:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Angular-CRUD-Operations:build:production"
+              "buildTarget": "Angular-CRUD-Operations:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Angular-CRUD-Operations:build"
+            "buildTarget": "Angular-CRUD-Operations:build"
           }
         },
         "e2e": {
