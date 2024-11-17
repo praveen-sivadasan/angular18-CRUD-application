@@ -1,6 +1,6 @@
 # Overview
 
-This project was generated with [Angular 18 CLI](https://github.com/angular/angular-cli/tree/16.2.14).<br>
+This project was generated with [Angular 18 CLI](https://github.com/angular/angular-cli/tree/18.2.12).<br>
 Angular 16 CRUD operations
 * Create
 * Read
