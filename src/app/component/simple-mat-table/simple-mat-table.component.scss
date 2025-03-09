@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.grid-container {
+  display: grid;
+  row-gap: 10px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+
+  .grid-item {
+    text-align: center;
+
+    &.right {
+      text-align: right;
+
+      button {
+        font-size: 14px;
+      }
+    }
+  }
+}
