@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { UpsertUserFormComponent } from '../component/upsert-user-form/upsert-us
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { UpsertUserFormModule } from '../component/upsert-user-form/upsert-user-form.module';
+import { ActivatedRoute } from '@angular/router';
 
 interface UserDto {
   id: number;
@@ -31,15 +32,27 @@ export class SimpleMatTableComponent implements OnInit {
   public users: UserDto[];
   public userTableColumns = ['firstName', 'lastName', 'actions'];
 
-  constructor(private userService: UserService, public dialog: MatDialog) { }
+  constructor(private readonly userService: UserService,
+              private readonly dialog: MatDialog,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.users = this.getUsers();
+    this.activatedRoute.data.subscribe(({data}) => {
+      this.users = (data.users || []).map((user: User) => {
+       return {
+         id: user.id,
+         firstName: user.firstName,
+         lastName: user.lastName,
+         actions: ''
+       };
+      });
+    });
   }
 
   public removeUser(user: UserDto) {
     this.userService.deleteUser(user.id);
-    this.users = this.getUsers();
+    this.users = this.users.filter(u => u.id !== user.id);
   }
 
   public showEditUserForm(user: UserDto) {
@@ -55,19 +68,12 @@ export class SimpleMatTableComponent implements OnInit {
       if (result) {
         // update user
         this.userService.updateUser(result);
-        this.users = this.getUsers();
-      }
-    });
-  }
 
-  private getUsers(): UserDto[] {
-    return this.userService.getUsers().map((user) => {
-      return {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        actions: ''
-      };
+        const updatedUser = this.users.find(u => u.id === result.id);
+        updatedUser.firstName = result.firstName;
+        updatedUser.lastName = result.lastName;
+        updatedUser.actions = '';
+      }
     });
   }
 
@@ -76,7 +82,13 @@ export class SimpleMatTableComponent implements OnInit {
       if (result) {
         // add user
         this.userService.addUser(result);
-        this.users = this.getUsers();
+        this.users.push({
+          id: result.id,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          actions: ''
+        });
+        this.cdr.detectChanges();
       }
     });
   }

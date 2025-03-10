@@ -1,0 +1,26 @@
+<div class="grid-container">
+  <div class="grid-item right" >
+    <button class="btn btn-info" (click)="showAddUserForm()">Add New User</button>
+  </div>
+  <div class="grid-item">
+    <h1 class="text-center">User List</h1>
+  </div>
+
+  <div class="grid-item grid-item-table">
+    <div class="card">
+      <div>First Name</div>
+      <div>Last Name</div>
+      <div>Actions</div>
+    </div>
+    @for (userObjForm of usersFormArray.controls; track $index) {
+      <div class="card">
+        <div>{{ userObjForm.get('firstName').value }}</div>
+        <div> {{ userObjForm.get('lastName').value }}</div>
+        <div>
+          <button class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(userObjForm.get('id').value)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="removeUser(userObjForm.get('id').value)">Delete</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
