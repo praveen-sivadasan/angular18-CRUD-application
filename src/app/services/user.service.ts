@@ -11,6 +11,11 @@ export class UserService {
       id: 1,
       firstName: 'John',
       lastName: 'Clerk'
+    },
+    {
+      id: 2,
+      firstName: 'Sam',
+      lastName: 'Henderson'
     }
   ];
 

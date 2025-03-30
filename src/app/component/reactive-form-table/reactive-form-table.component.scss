@@ -1,0 +1,49 @@
+table {
+  width: 100%;
+}
+
+.grid-container {
+  display: grid;
+  row-gap: 10px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+
+  .grid-item {
+    text-align: center;
+
+    &.right {
+      text-align: right;
+
+      button {
+        font-size: 14px;
+      }
+    }
+
+    &-table {
+      box-shadow: var(--mat-app-elevation-shadow-level-8, none);
+
+      .card {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        > div {
+          align-items: center;
+          display: flex;
+          flex: 1;
+          padding: 6px 16px;
+          height: 52px;
+        }
+      }
+
+      .card:first-child {
+        font-weight: 500;
+      }
+
+      .card:not(:last-child) {
+        border-bottom: none;
+      }
+    }
+  }
+}
